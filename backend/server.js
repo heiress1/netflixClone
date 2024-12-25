@@ -2,23 +2,11 @@
 //alternative way to import express 
 import express from "express"; //ES6 way to import express
 
+//when importing from a local file, you need the .js extension because we are using the type in the package.json is module  
+import authRoutes from "./routes/auth.route.js"; //import the authRoutes from the auth.route file
 const app = express();
 
-//builds a signout route
-// controller functon that takes in a request and response
-//version number is used incase we use a different version of the API
-app.get("/api/v1/signup", (req, res) => {
-    res.send("signup route");
-});
-
-
-app.get("/api/v1/login", (req, res) => {
-    res.send("login route");
-});
-
-app.get("/api/v1/logout", (req, res) => {
-    res.send("logout route");
-});
+app.use("/api/v1/auth", authRoutes); //use the authRoutes for the /api/v1/auth URL
 
 //listen to the root URL, consoles a message
 app.listen(5000, () => {
