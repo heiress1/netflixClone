@@ -8,7 +8,6 @@ const router = express.Router();
 
 
 //builds routes
-//version number is used incase we use a different version of the API
 router.get("/signup", signup);
 
 
