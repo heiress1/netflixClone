@@ -9,7 +9,11 @@ import { connectDB } from "./config/db.js"; //import the connectDB function from
 
 const app = express();
 
+//use is a express method that allows us to use middleware functions to access the request object (req), the response object (res), and the next function in the application’s request-response cycle
+app.use(express.json()); //express.json() method allows us to parse JSON payloads in incoming HTTP requests and use req.body object
+
 const PORT = ENV_VARS.PORT; //assign the port number to the PORT variable
+
 //version number is used incase we use a different version of the API
 app.use("/api/v1/auth", authRoutes); //use the authRoutes for the /api/v1/auth URL
 

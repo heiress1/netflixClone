@@ -29,6 +29,8 @@ const userSchema = new mongoose.Schema({
 });
 
 //create a model for the user schema
+//a model reps the data structure and the associated behaviours
+//a model defines the schema for the data collection and provides an interface to interact with data
 //create a 'user' model using the userSchema
 //quotation marks need to be single quotes and first letter needs to be uppercase
 //mongo will convert 'User' to lowercase and pluralize it to 'users'
