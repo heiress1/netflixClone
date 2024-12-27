@@ -78,9 +78,7 @@ export async function signup(req, res) {
         }});
 
     
-        //not 500 as we already checked for invalid user data
-        //
-        res.status(400).json({success: false, message: "Internal server error"});
+        
 
     } catch (error) {
         console.error("error in signup controller: " + error.message);

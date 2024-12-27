@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"; //an instance of jsonwebtoken library is made 
-import { ENV_VARS } from "../config/envVars";
+import { ENV_VARS } from "../config/envVars.js";
 
 export const generateTokenAndSetCookie = (userid,res) => {
     //jwt.sign is how we create a token
@@ -23,13 +23,5 @@ export const generateTokenAndSetCookie = (userid,res) => {
     so baicually the cookie will save a copy of the original token in the browser so that subsequent http requests from the client can be validated againts the originaed token saved in the cookie to validate it is still the same user and nothing has been tampered with
     */
 
-    const options = {
-        expires: new Date(
-            Date.now() + 30 * 24 * 60 * 60 * 1000
-        ),
-        httpOnly: true,
-    };
-
-    res.cookie("token", token, options);
-    return token;
+   
 }
