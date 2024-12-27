@@ -88,10 +88,61 @@ export async function signup(req, res) {
 }
 
 export async function login(req, res) {
-    res.send("login route");
+    try{
+        //in Postman, when i send a post request to the login endpoint,
+        // the email and password are sent in the body of the request as json
+        //that json info is what req.body contains
+        const {email, password} = req.body;
+
+        //no email or password
+        if (!email || !password) {
+            return res.status(400).json({success: false, message: "Please provide email and password"});
+        }
+
+        const user = await User.findOne({email:email});
+        
+        //no user with that email
+        //we give a vague error message to prevent attackers from knowing if the email or password is incorrect
+        if (!user) {
+            return res.status(404).json({success: false, message: "Invalid credentials"});
+        }
+
+
+        //check password is correct by comparing the password entered vs the password in the system
+        const isPasswordCorrect = await bcryptjs.compare(password, user.password);
+        
+        if (!isPasswordCorrect) {
+            return res.status(404).json({success: false, message: "Invalid credentials"});
+        }
+
+        //if the credentials pass all tests:
+        generateTokenAndSetCookie(user._id, res);
+
+        //return the user object without the password once successful
+        res.status(200).json({
+            success: true,
+            user:{
+                ...user._doc,
+                password:""
+            }
+        });
+        
+
+    }catch (error){
+        console.error("error in login controller: " + error.message);
+        res.status(500).json({success: false, message: "Internal server error"});
+    }
 }
 
 export async function logout(req, res) {
-    res.send("logout route");
+
+    try {
+        //by clearing the cookie, you invalidate the session ensuring no more valid authtication with the cookie, preventing unorthoriszed access
+        res.clearCookie("jwtNetflix");
+        res.status(200).json({success: true, message: "Logged out successfully"});
+    }catch(error){
+        console.error("error in logout controller: " + error.message);
+        res.status(500).json({success: false, message: "Internal server error"});
+    }
 }
 
