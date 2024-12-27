@@ -1,5 +1,6 @@
 import {User} from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
+import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 
 // controller functons that takes in a request and response
 
@@ -57,25 +58,29 @@ export async function signup(req, res) {
 
         const newUser = new User({
            email:email,
-           //now when the user object is saved into mongodb, the password will be hashed
+           //now when the user object is saved into mongodb, the password will be hashed 
            password:hashedPassword,
            username:username,
            image:image
         });
 
+        
+        generateTokenAndSetCookie(newUser._id, res);
         //saves a new user document to the mongodb database
         await newUser.save();
 
         //a user was created successfully so we return success and the user object
         res.status(201).json({success: true, user:{
-            //_doc is a mongoose property that returns the document object that contains just the raw data 
-            //as when mongoose document is created, it includes metadata and methods which we leave out with _doc
-            ...newUser._doc, 
-            password: ""
+        //_doc is a mongoose property that returns the document object that contains just the raw data 
+        //as when mongoose document is created, it includes metadata and methods which we leave out with _doc
+        ...newUser._doc, 
+        password: ""
         }});
 
-
-
+    
+        //not 500 as we already checked for invalid user data
+        //
+        res.status(400).json({success: false, message: "Internal server error"});
 
     } catch (error) {
         console.error("error in signup controller: " + error.message);
