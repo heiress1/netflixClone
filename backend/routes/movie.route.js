@@ -1,10 +1,11 @@
 import express from "express";
+
 import { getTrendingMovie } from "../controllers/movie.controller.js";
 import { getMovieTrailers } from "../controllers/movie.controller.js";
 import { getMovieDetails } from "../controllers/movie.controller.js";
-import { getSimilarDetails } from "../controllers/movie.controller.js";
+import { getSimilarMovies } from "../controllers/movie.controller.js";
 import { getMoviesByCategory } from "../controllers/movie.controller.js";
-import { get } from "mongoose";
+
 
 //routers are paths to different pages of the website
 //the route will specify how it will respond to a http request
@@ -18,7 +19,7 @@ router.get("/trending", getTrendingMovie);
 //the :id can be any id value
 router.get("/:id/trailers", getMovieTrailers);
 router.get("/:id/details", getMovieDetails);
-router.get("/:id/similar", getSimilarDetails);
+router.get("/:id/similar", getSimilarMovies);
 router.get("/:category", getMoviesByCategory);
 
 

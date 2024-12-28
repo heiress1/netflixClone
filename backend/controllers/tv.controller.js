@@ -13,10 +13,10 @@ import {fetchFromTMDB} from "../services/tmdb.service.js";
  * @returns {Promise<void>} - Sends a JSON response with a random trending movie or an error message.
  */
 
-export async function getTrendingMovie(req, res) {
+export async function getTrendingTV(req, res) {
 
   try{
-    const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/movie/day?language=en-US");
+    const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/tv/day?language=en-US");
     const randomMovie = data.results[Math.floor(Math.random() * data.results?.length)];
 
     res.json({success:true, content:randomMovie});
@@ -27,7 +27,7 @@ export async function getTrendingMovie(req, res) {
   }
 }
 
-export async function getMovieTrailers(req,res){
+export async function getTVTrailers(req,res){
   //{id } is destruturing assingment syntax that allows you to extract properties from objects and assign then to varialbes
   //id property of the the req.pararms
   //it extracts the id property and assigsn it to id variable
@@ -36,7 +36,7 @@ export async function getMovieTrailers(req,res){
   try {
     //this is a dynamic url, the ${id} brings the url to the endpoint of a trailer 
     //the id represents the movie trailer id
-    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`);
+    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US`);
     res.json({success:true, trailers:data.results});
   }catch(error){
     if (error.message.includes("404")){
@@ -56,10 +56,10 @@ export async function getMovieTrailers(req,res){
 
 }
 
-export async function getMovieDetails (req, res) {
+export async function getTVDetails (req, res) {
   const {id} = req.params;  
   try {
-    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}?language=en-US`);  
+    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}?language=en-US`);  
     res.status(200).json({success:true, content:data});
   }catch(error){
     if (error.message.includes("404")){
@@ -74,7 +74,7 @@ export async function getMovieDetails (req, res) {
 }
 
 
-export async function getSimilarMovies (req, res) {
+export async function getSimilarTVs(req, res) {
   const {id} = req.params;
   try {
     const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`);
@@ -88,11 +88,11 @@ export async function getSimilarMovies (req, res) {
   }
 }
 
-export async function getMoviesByCategory (req, res) {
+export async function getTVsByCategory (req, res) {
   const {category} = req.params;
-
+  
   try {
-    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`);
+    const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${category}?language=en-US&page=1`);
     res.status(200).json({success:true, content:data.results});
   }catch(error){
     console.error("Error in getMoviesByCategory:", error.message);
