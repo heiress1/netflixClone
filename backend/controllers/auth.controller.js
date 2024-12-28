@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 
 // controller functons that takes in a request and response
+// this function is called by the express.js router when a post rquest is made to the /signup endpoint
 
 export async function signup(req, res) {
     
