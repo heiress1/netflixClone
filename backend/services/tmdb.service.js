@@ -27,6 +27,6 @@ export const fetchFromTMDB = async (url) => {
         throw new Error("Failed to fetch data from TMDB");
     }
 
-    //
+  
     return response.data;
 };
