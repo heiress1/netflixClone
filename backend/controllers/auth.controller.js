@@ -105,6 +105,7 @@ export async function login(req, res) {
         //no user with that email
         //we give a vague error message to prevent attackers from knowing if the email or password is incorrect
         if (!user) {
+            console.log("login error:", error.message);
             return res.status(404).json({success: false, message: "Invalid credentials"});
         }
 

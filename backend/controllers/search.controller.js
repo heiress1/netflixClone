@@ -38,9 +38,9 @@ export async function searchPerson(req,res){
             $push: {
                 //adds new search history object to array
                 searchHistory: {
-                    id: response.result[0].id,
-                    image: response.result[0].profile_path,
-                    title: response.result[0].name,
+                    id: response.results[0].id,
+                    image: response.results[0].profile_path,
+                    title: response.results[0].name,
                     searchType: "person",
                     createdAt: new Date(),
                 },
@@ -89,9 +89,9 @@ export async function searchMovie(req,res){
         await User.findByIdAndUpdate(req.user._id, {
             $push: {
                 searchHistory: {
-                    id: response.result[0].id,
-                    image: response.result[0].poster_path,
-                    title: response.result[0].title,
+                    id: response.results[0].id,
+                    image: response.results[0].poster_path,
+                    title: response.results[0].title,
                     searchType: "movie",
                     createdAt: new Date(),
                 },
@@ -134,9 +134,9 @@ export async function searchTV(req,res){
         await User.findByIdAndUpdate(req.user._id, {
             $push: {
                 searchHistory: {
-                    id: response.result[0].id,
-                    image: response.result[0].poster_path,
-                    title: response.result[0].name,
+                    id: response.results[0].id,
+                    image: response.results[0].poster_path,
+                    title: response.results[0].name,
                     searchType: "tv",
                     createdAt: new Date(),
                 },
@@ -180,6 +180,31 @@ export async function getSearchHistory(req,res){
 }
 
 export async function deleteItemFromSearchHistory(req,res){
+    let {id} = req.params;
 
+    //in mongodb, id is a int, but from params, it will always be string and typeof int != typeof string
+    //so $pull is never called unless we set id to a number
+    id = parseInt(id);
+
+    try{
+        //findbyidandupdates is a mongoose method
+        //req.user._id finds the user with the id object
+        await User.findByIdAndUpdate(req.user._id, {
+            $pull: {
+                searchHistory: {
+                    //it searchs through the id keys and looks for the one with the matching id in params
+                    //a condition where it will only remove the id that matches the provided id in the pararms
+                    id: id,
+                },
+            },
+        });
+
+        console.log("item in search history", req.user._id);
+        res.status(200).json({success:true, message:"Item removed from search history"});
+    }catch( error){
+        console.error("Error in deleteItemFromSearchHistory:", error.message);
+
+        res.status(500).json({success:false, message:"Internal Server Error "});
+    }
 }
 

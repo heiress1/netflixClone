@@ -77,6 +77,10 @@ export async function getMovieDetails (req, res) {
 export async function getSimilarMovies (req, res) {
   const {id} = req.params;
   try {
+    //we fetch the api from the backend so that we can hide the api in the .env file
+    //if we fetch the api from the frontend using useeffect, the client will know the api key
+    //as the frot end code is visible through inspect in the browswer
+    
     const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`);
     res.status(200).json({success:true, content:data.results});
   }catch(error){
