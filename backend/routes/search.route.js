@@ -4,6 +4,14 @@ import { searchPerson, searchMovie, searchtv } from "../controllers/search.contr
 
 const router = express.Router(); //create a new router object
 
+//search routers
 router.get("/person/:query", searchPerson); //create a new route that listens for GET requests to the /person/:query URL
 router.get("/movie/:query", searchMovie); l
 router.get("/tv/:query", searchtv); 
+
+router.get("/history", getSearchHistory); //create a new route that listens for GET requests to the /history URL
+
+router.delete("/history/:id", deleteItemFromSearchHistory); //create a new route that listens for DELETE requests to the /history/:id URL
+
+
+export default router; //export the router object

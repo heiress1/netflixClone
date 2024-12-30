@@ -150,3 +150,29 @@ export async function searchTv(req,res){
 
 
 }
+
+/**
+ * Retrieves the search history of the authenticated user.
+ * 
+ * This function is called by the Express.js router when a GET request is made to the search history endpoint.
+ * It fetches the search history from the authenticated user's data and sends it as a JSON response.
+ * 
+ * @param {Object} req - The request object from the Express.js router.
+ * @param {Object} req.user - The authenticated user object, which contains the user's data.
+ * @param {Object} res - The response object from the Express.js router.
+ * 
+ * @returns {Promise<void>} - Sends a JSON response with the user's search history or an error message.
+ * 
+ * @throws {Error} - Throws an error if there is an issue retrieving the search history.
+ */
+export async function getSearchHistory(req,res){
+    try{
+        //user is a instance of the User model, so we can access the searchistory property in the schema
+        res.status(200).json({success:true, content:req.user.searchHistory});
+        
+    }catch(error){
+        console.error("Error in getSearchHistory:", error.message);
+
+        res.status(500).json({success:false, message:"Internal Server Error"});
+    }
+}

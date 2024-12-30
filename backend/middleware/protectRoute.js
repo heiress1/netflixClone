@@ -39,6 +39,7 @@ export const protectRoute = async (req, res, next) => {
             return res.status(404).json({success:false, message:"Unauthorized, user not found"});
         }
 
+        //once user is authenticated, add to req to allow acess later
         req.user  = user; //adds the user object to the request object
 
         next(); //if the user is logged in, the next middleware function is called
