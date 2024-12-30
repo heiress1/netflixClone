@@ -2,8 +2,8 @@ import React from 'react'
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>home</h1>
+    <div className="hero-bg h-screen">
+      
     </div>
   )
 }
