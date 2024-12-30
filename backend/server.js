@@ -1,7 +1,7 @@
 // const express = require('express'); commonJS way to import express
 //alternative way to import express 
 import express from "express"; //ES6 way to import express
-import cookieParser from "cookie-parser";
+import cookieParser from 'cookie-parser';
 
 //when importing from a local file, you need the .js extension because we are using the type in the package.json is module  
 import authRoutes from "./routes/auth.route.js"; //import the authRoutes from the auth.route file

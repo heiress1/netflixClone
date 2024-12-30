@@ -1,6 +1,6 @@
 
 import { User } from "../models/user.model.js";
-import { fetchFromTMDB } from "../utils/fetchFromTMDB.js";
+import { fetchFromTMDB } from "../services/tmdb.service.js";
 
 /**
  * Searches for a person on TMDB and updates the user's search history.
@@ -19,7 +19,9 @@ export async function searchPerson(req,res){
     const {query} = req.params;
     try{
         const response = await fetchFromTMDB(`https://api.themoviedb.org/3/search/person?query=${query}&include_adult=false&language=en-US&page=1`);
-        if (response.result.length === 0 ){
+        // Log the response to check its structure
+        console.log("TMDB API Response:", response);
+        if (response.results.length === 0 ){
             return res.status(404).send(null);
         }
 
@@ -80,7 +82,7 @@ export async function searchMovie(req,res){
 
     try{
         const response = await fetchFromTMDB(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`);
-        if (response.result.length === 0 ){
+        if (response.results.length === 0 ){
             return res.status(404).send(null);
         }
 
@@ -121,11 +123,11 @@ export async function searchMovie(req,res){
  * 
  * @throws {Error} - Throws an error if the search fails or if there is an issue updating the user's search history.
  */
-export async function searchTv(req,res){
+export async function searchTV(req,res){
     const {query} = req.params;
     try{
         const response = await fetchFromTMDB(`https://api.themoviedb.org/3/search/tv?query=${query}&include_adult=false&language=en-US&page=1`);
-        if (response.result.length === 0 ){
+        if (response.results.length === 0 ){
             return res.status(404).send(null);
         }
 
@@ -176,3 +178,8 @@ export async function getSearchHistory(req,res){
         res.status(500).json({success:false, message:"Internal Server Error"});
     }
 }
+
+export async function deleteItemFromSearchHistory(req,res){
+
+}
+
