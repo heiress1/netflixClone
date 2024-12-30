@@ -13,7 +13,7 @@ const SignUpPage = () => {
   }
   return (
     //sets the background image for the page
-    <div className="h-screen w-full hero-bg">
+    <div className="h-screen w-full hero-bg ">
       {/* //sets the netflix logo header*/}
       <header className="max-w-6xl mx-auto flex items-center justify-between p-4">
         {/* link allows you to navigate between routes without a full-page reload */}
@@ -23,7 +23,7 @@ const SignUpPage = () => {
       </header>
 
       {/* sets up the sign up block */}
-      <div className="flex justify-center items-center mt-20 mx-3">
+      <div className="flex justify-center items-center mx-3">
         <div className="w-full max-w-md p-8 space-y-6 bg-black/80 rounded-lg shadow-md">
           <h1 className="text-center text-white text-2xl font-bold mb-4">
             Sign Up
