@@ -8,6 +8,7 @@ import authRoutes from "./routes/auth.route.js"; //import the authRoutes from th
 import movieRoutes from "./routes/movie.route.js"; //import the authRoutes from the auth.route file
 import tvRoutes from "./routes/tv.route.js"; //import the authRoutes from the auth.route file
 import { protectRoute } from "./middleware/protectRoute.js";
+import searchRoutes from "./routes/search.route.js";
 
 import { ENV_VARS } from "./config/envVars.js";
 import { connectDB } from "./config/db.js"; //import the connectDB function from the db file
@@ -26,6 +27,9 @@ app.use("/api/v1/auth", authRoutes); //use the authRoutes for the /api/v1/auth U
 //if the user is logged in, they will be allowed to access the movie and tv routes
 app.use("/api/v1/movie", protectRoute, movieRoutes);
 app.use("/api/v1/tv", protectRoute, tvRoutes);
+
+app.use("/api/v1/search", protectRoute, searchRoutes);
+
 
 //listen to the root URL, consoles a message
 app.listen(PORT, () => {

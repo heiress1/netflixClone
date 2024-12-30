@@ -88,6 +88,7 @@ export async function getSimilarTVs(req, res) {
   }
 }
 
+
 export async function getTVsByCategory (req, res) {
   const {category} = req.params;
   
