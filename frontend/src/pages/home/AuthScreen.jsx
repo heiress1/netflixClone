@@ -1,9 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
 const AuthScreen = () => {
     const [email, setEmail] = React.useState("");
+    const navigate = useNavigate();
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        //after submitting email, page navigates to singup page where the email is found in the url
+        //we want to the signupPage to use that email as the initial state of the signup form
+        navigate("/signup?email=" + email);
+        console.log(email);
+    }
+
     return (
         <div className="hero-bg relative">
             {/* Navbar */}
@@ -32,8 +43,8 @@ const AuthScreen = () => {
                 </h3>
 
                 <div className="flex items-center justify-center w-full px-4 mt-4">
-                    {/* Updated Form */}
-                    <form className="flex flex-col lg:flex-row gap-4 w-full max-w-xl px-11 sm:px-6 md:px-11 lg:px-0">
+                    
+                    <form onSubmit={handleFormSubmit} className="flex flex-col lg:flex-row gap-4 w-full max-w-xl px-11 sm:px-6 md:px-11 lg:px-0">
                         <input
                             type="email"
                             placeholder="Email Address"

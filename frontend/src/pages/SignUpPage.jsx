@@ -2,9 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
-  const [email, setEmail] = React.useState("");
+  //{searchparms } is a destructuring assingment syntax to allow you to extract the searchparms property from the url and assign it to the searchparms variable
+  //the new URL(document.location) creates a new URL object from the current url
+  //document.location proeprty returns the infromation of the current URL of the document
+  const {searchParams} =  new URL(document.location);
+  
+  //get the email from the url
+  const emailValue = searchParams.get("email"); 
+
+
+  const [email, setEmail] = React.useState(emailValue || "");
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  
 
   const handleSignUp = (event)=> {
     //prevents page from refreshing once submit form
