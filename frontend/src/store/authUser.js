@@ -19,6 +19,9 @@ export const useAuthStore = create ((set) => ({
     //are we in the process of signing up? 
 
     isSigningUp:false, //this is for the loading state of singing up
+    isCheckingAuth: true, //true because the momene the app loads, it will check if its true or not 
+    isloggingOut:false, //this is for the loading state of logging in
+    isloggingIn:false,
     signup: async(credentials)=> {
         //we are now signing in
         set({isSigningUp:true});
@@ -39,14 +42,45 @@ export const useAuthStore = create ((set) => ({
             toast.success("Account created successfully");
         }catch(error){
             console.log("error in signup:", error.message);
-            toast.error(error.response.data.message || "An error occured");
+            toast.error(error.response.data.message || "Sign in Failed");
             console.log(error.response.data.message);
             set({isSigningUp:false, user:null});//user null because failed to sing up
 
         }
     },
-    login:async()=> {},
-    logout:async()=> {},
-    authCheck:async()=> {},
+    //credentials is a object that contains the email and password of the user
+    login:async(credentials)=> {
+        set({isLoggingIn:true});
+        try{
+            const response = await axios.post("/api/v1/auth/login", credentials);
+            set({user: response.data.user, isLoggingIn:false});
+            toast.success("Logged in successfully");
+        }catch(error){
+            set({isLoggingIn:false, user:null});
+            toast.error(error.response.data.message || "Login in Failed");
+        }
+    },
+    logout:async()=> {
+        set({isLoggingOut:true});
+        try{
+            await axios.post("/api/v1/auth/logout");
+            set({user:null, isLoggingOut:false});
+            toast.success("Logged out successfully");
+        }catch(error){
+            console.log(error.message);
+            set({isLogginOut:false});
+            toast.error(error.response.data.message || "Log Out Failed");
+        }
+        
+    },
+    authCheck:async()=> {
+        set({isCheckingAuth:true});
+        try{
+            const response = await axios.get("/api/v1/auth/authCheck");
+            set({user: response.data.user, isCheckingAuth:false});
+        }catch (error){
+            set({isCheckingAuth:false, user:null});
+        }
+    },
     
 }))
