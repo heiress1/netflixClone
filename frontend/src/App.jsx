@@ -37,6 +37,7 @@ function App() {
     <Routes>
       <Route path="/" element= {<HomePage/>} />
       <Route path="/login" element= {!user ? <LoginPage/> : <Navigate to={"/"}/> } />
+      {/* it will decided witch page to show based on the user state */}
       <Route path="/signup" element= {!user ? <SignUpPage/>: <Navigate to={"/"} />} />
 
     </Routes>
