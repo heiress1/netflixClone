@@ -2,14 +2,16 @@ import React from 'react'
 //this library is used to handle routing in react
 //link is used for navigation between routes
 import {Link} from 'react-router-dom'
-
-
+import { useAuthStore } from '../store/authUser';
 const LoginPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const {login} = useAuthStore();
 
   const handleLogin= (event) => {
     event.preventDefault();
+    //pass in credentials as an object
+    login({email, password});
     console.log(email, password);
   }
 
