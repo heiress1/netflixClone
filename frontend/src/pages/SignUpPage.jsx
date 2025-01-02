@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import {useAuthStore} from "../store/authUser.js";
 const SignUpPage = () => {
   //{searchparms } is a destructuring assingment syntax to allow you to extract the searchparms property from the url and assign it to the searchparms variable
   //the new URL(document.location) creates a new URL object from the current url
@@ -15,12 +15,14 @@ const SignUpPage = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  
+  const {signup} = useAuthStore();
 
   const handleSignUp = (event)=> {
     //prevents page from refreshing once submit form
     event.preventDefault();
-    console.log(email, username, password);
+    //call signup from the useAuthStore where we pass in a user object
+    //the email, username, password are avaiblble in the state
+    signup({email, username, password});
   }
   return (
     //sets the background image for the page

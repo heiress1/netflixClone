@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import { BrowserRouter } from 'react-router-dom'
 import Footer from './components/Footer';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 
@@ -16,6 +17,8 @@ function App() {
 
     </Routes>
     <Footer/>
+
+    <Toaster/>
     </>
     
   )

@@ -21,6 +21,10 @@ app.use(cookieParser()); //cookieParser() method allows us to parse cookies in i
 const PORT = ENV_VARS.PORT; //assign the port number to the PORT variable
 
 //version number is used incase we use a different version of the API
+//the url routes are used to access different parts of web application
+//express then allows you to use these routes for different http requests in the respective route files
+//this mounts the authroutes router to the /api/v1/auth path
+//meadning all requests to /api/v1/auth will be handled by the authRoutes router
 app.use("/api/v1/auth", authRoutes); //use the authRoutes for the /api/v1/auth URL
 
 //protectRoute is a middleware function that checks if the user is logged in

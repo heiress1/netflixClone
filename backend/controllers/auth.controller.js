@@ -5,6 +5,8 @@ import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 // controller functons that takes in a request and response
 // this function is called by the express.js router when a post rquest is made to the /signup endpoint
 
+\
+
 export async function signup(req, res) {
     
     //user wants to send a couple of credentials to the server
@@ -16,14 +18,18 @@ export async function signup(req, res) {
         const {email, password, username} = req.body;
 
         if (!email || !password || !username) {
-            return res.status(400).json({success: false, message: "Please provide all fields"});
+            return res.status(400).json({success: false, message: "Please provide all fields",
+
+            });
         }
 
         //tests to see if email is valid 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!emailRegex.test(email)) {
-            return res.status(400).json({success: false, message: "Invalid email"});
+            return res.status(400).json({success: false, message: "Invalid email",
+
+            });
         }
 
         if (password.length < 6) {

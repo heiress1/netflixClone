@@ -16,5 +16,4 @@ export const ENV_VARS = {
 console.log("TMDB_API_KEY", process.env.TMDB_API_KEY);
 console.log("MONGO_URI", process.env.MONGO_URI);
 
-dotenv.config();
 
