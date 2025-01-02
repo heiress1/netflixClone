@@ -5,7 +5,7 @@ import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 // controller functons that takes in a request and response
 // this function is called by the express.js router when a post rquest is made to the /signup endpoint
 
-\
+
 
 export async function signup(req, res) {
     
@@ -150,6 +150,22 @@ export async function logout(req, res) {
         res.status(200).json({success: true, message: "Logged out successfully"});
     }catch(error){
         console.error("error in logout controller: " + error.message);
+        res.status(500).json({success: false, message: "Internal server error"});
+    }
+}
+
+export async function authCheck(req, res) {
+    try {
+        //the protectRoute middleware adds the user object to the request object
+        //the protectRoute middleware adds teh user object to the request object upon successful authentication and called next()
+        //if the protectRoute is not successful, authCeheck will not be called
+        //the catch is to catch unexpected errors
+        //middleware functions are functions with access to request and response(req and res) objects and the next middleware function 
+        //in this case, the "next" function is authCheck
+        //upon success, it returns the user object
+        res.status(200).json({success: true, user: req.user});
+    }catch(error){
+        console.error("error in authCheck controller: " + error.message);
         res.status(500).json({success: false, message: "Internal server error"});
     }
 }

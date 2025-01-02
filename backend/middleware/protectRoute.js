@@ -18,7 +18,7 @@ export const protectRoute = async (req, res, next) => {
         //jwtNetflic is the key that gives you the value of the cookie that is assinged to token
         
         const token = req.cookies["jwtNetflix"];
-
+        console.log("token", token);
         //if there is no token, the user is not logged in
         if (!token) {
             return res.status(401).json({success:false, message:"Unauthorized, no token provided"});
