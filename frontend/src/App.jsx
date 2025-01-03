@@ -41,7 +41,7 @@ function App() {
       <Route path="/login" element= {!user ? <LoginPage/> : <Navigate to={"/"}/> } />
       {/* it will decided witch page to show based on the user state */}
       <Route path="/signup" element= {!user ? <SignUpPage/>: <Navigate to={"/"} />} />
-      <Route path="/watch/:id" element={<WatchPage />} />
+      <Route path="/watch/:id" element={user ? <WatchPage /> : <Navigate to={"/login"}/>} />
     </Routes>
     <Footer/>
 
