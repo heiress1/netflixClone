@@ -47,7 +47,7 @@ const Slider = ({ category }) => {
             //this allows you to scroll to the left with the - by the size of the width
             sliderRef.current.scrollBy({left:-sliderRef.current.offsetWidth, behavior:"smooth"});
            }
-        };
+    };
     
     
     //scroll to the right
@@ -55,7 +55,7 @@ const Slider = ({ category }) => {
         if (sliderRef.current) {
           sliderRef.current.scrollBy({ left: sliderRef.current.offsetWidth, behavior: "smooth" });
         }
-      };
+    };
 
     return (
         <div className="bg-black text-white relative px-5 md:px-20"
