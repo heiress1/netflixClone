@@ -8,6 +8,8 @@ import { Toaster } from 'react-hot-toast';
 import { useAuthStore } from './store/authUser';
 import React, {useEffect} from 'react';
 import {Loader} from 'lucide-react';
+import WatchPage from './pages/WatchPage';
+
 function App() {
   const {user, isCheckingAuth, authCheck} = useAuthStore();
   console.log("user", user);
@@ -39,7 +41,7 @@ function App() {
       <Route path="/login" element= {!user ? <LoginPage/> : <Navigate to={"/"}/> } />
       {/* it will decided witch page to show based on the user state */}
       <Route path="/signup" element= {!user ? <SignUpPage/>: <Navigate to={"/"} />} />
-
+      <Route path="/watch/:id" element={<WatchPage />} />
     </Routes>
     <Footer/>
 
