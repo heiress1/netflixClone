@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
 import ReactPlayer from 'react-player';
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from '../utils/constants';
-
+import WatchPageSkeleton from '../components/skeletons/WatchPageSkeleton';
 
 function formatReleaseDate(date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -113,13 +113,29 @@ const WatchPage = () => {
     }
   };
 
-
+  //if page is loading, it will show a shimmering effect for the page
   if (loading) return (
     <div className="min-h-screen bg-black p-10">
       <WatchPageSkeleton />
     </div>
   );
-  
+
+
+  //if content is not found, it will show a message
+  if (!content) {
+		return (
+			<div className='bg-black text-white h-screen'>
+				<div className='max-w-6xl mx-auto'>
+					<Navbar />
+					<div className='text-center mx-auto px-4 py-8 h-full mt-40'>
+						<h2 className='text-2xl sm:text-5xl font-bold text-balance'>Content not found 🙃</h2>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+
   return (
     <div className=" bg-black min-h-screen text-white">
       <div className='mx-auto container px-4 py-8 h-full'>
@@ -172,7 +188,7 @@ const WatchPage = () => {
           {/* incase there are no trailers */}
           {trailers.length === 0 && (
             <h2 className="text-xl text-center mt-5">
-              No trailers available for{" "}
+              No trailers available{" "}
               <span className="font-bold text-red-600">{content?.title || content?.name}</span>
             </h2>
           )}
@@ -231,11 +247,13 @@ const WatchPage = () => {
             {/* slider container */}
             <div className="flex overflow-x-scroll scrollbar-hide gap-4 pb-4 group" ref={sliderRef}>
 
-              {/* maps through the similar content and displays them in a slider */}
-              {similarContent.map((content) => (
+              {/* if there are no images for a show, it will just not show the poster */}
+              if (content.poster_path ===null) return null;
 
-                //makes the image and title clickable
-                <Link key={content.id} to={`/watch/${content.id}`} className="w-52 flex-none">
+              {/* maps through the similar content and displays them in a slider */}
+              {similarContent.map((content) => {
+                return (
+                  <Link key={content.id} to={`/watch/${content.id}`} className="w-52 flex-none">
                   <img
                     src={SMALL_IMG_BASE_URL + content.backdrop_path}
                     alt="Poster path"
@@ -244,7 +262,8 @@ const WatchPage = () => {
                   {/* title name */}
                   <h4 className="mt-2 text-lg font-semibold"> {content.title || content.name}</h4>
                 </Link>
-              ))}
+                )
+              })}
 
             </div>
 
