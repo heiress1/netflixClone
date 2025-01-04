@@ -9,6 +9,7 @@ import { useAuthStore } from './store/authUser';
 import React, {useEffect} from 'react';
 import {Loader} from 'lucide-react';
 import WatchPage from './pages/WatchPage';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   const {user, isCheckingAuth, authCheck} = useAuthStore();
@@ -42,6 +43,8 @@ function App() {
       {/* it will decided witch page to show based on the user state */}
       <Route path="/signup" element= {!user ? <SignUpPage/>: <Navigate to={"/"} />} />
       <Route path="/watch/:id" element={user ? <WatchPage /> : <Navigate to={"/login"}/>} />
+
+      <Route path="/search" element={user ?<SearchPage/> : <Navigate to={"/login"}/>} />
     </Routes>
     <Footer/>
 
