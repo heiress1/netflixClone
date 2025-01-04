@@ -31,7 +31,7 @@ export async function searchPerson(req,res){
         //updates user search history in mongodb using mongoose using the User that we imported from the user.model file
         //which is a user schema that you you to interact with the user collection in the database
         //in this case, the serach history
-        //findbyidandupdate is a mongoose method to find documents by id and update
+       // //findbyidandupdate is a mongoose method to find documents by id and update
         //takes two arugments, the user id, to be updated object with the specified changes
         await User.findByIdAndUpdate(req.user._id, {
             //$push adds a new entry to the search history array in the schema
@@ -170,6 +170,7 @@ export async function searchTV(req,res){
 export async function getSearchHistory(req,res){
     try{
         //user is a instance of the User model, so we can access the searchistory property in the schema
+        //we added the user to req when we authenticated the user in protectRoute
         res.status(200).json({success:true, content:req.user.searchHistory});
         
     }catch(error){

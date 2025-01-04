@@ -10,8 +10,11 @@ router.get("/person/:query", protectRoute, searchPerson); //create a new route t
 router.get("/movie/:query", protectRoute, searchMovie); 
 router.get("/tv/:query", protectRoute,searchTV); 
 
+//middleare to authenticates user's status using tokens in cookies
+//getsearch history is a controll function that retreives the user's search history from mongodb
+//
 router.get("/history", protectRoute,getSearchHistory); //create a new route that listens for GET requests to the /history URL
-
+//deleteItemFromSearchHistory is a controller function that deletes an item from the user's search history
 router.delete("/history/:id", protectRoute,deleteItemFromSearchHistory); //create a new route that listens for DELETE requests to the /history/:id URL
 
 

@@ -2,7 +2,7 @@
 //alternative way to import express 
 import express from "express"; //ES6 way to import express
 import cookieParser from 'cookie-parser';
-
+import path from "path"; //import the path module from node.js
 //when importing from a local file, you need the .js extension because we are using the type in the package.json is module  
 import authRoutes from "./routes/auth.route.js"; //import the authRoutes from the auth.route file
 import movieRoutes from "./routes/movie.route.js"; //import the authRoutes from the auth.route file
@@ -20,6 +20,8 @@ app.use(express.json()); //express.json() method allows us to parse JSON payload
 app.use(cookieParser()); //cookieParser() method allows us to parse cookies in incoming HTTP requests and use req.cookies
 const PORT = ENV_VARS.PORT; //assign the port number to the PORT variable
 
+const __dirname = path.resolve(); //assign the directory name to the __dirname variable
+
 //version number is used incase we use a different version of the API
 //the url routes are used to access different parts of web application
 //express then allows you to use these routes for different http requests in the respective route files
@@ -34,7 +36,18 @@ app.use("/api/v1/tv", protectRoute, tvRoutes);
 
 app.use("/api/v1/search", protectRoute, searchRoutes);
 
+//if the node environment is in production, serve the static files in the frontend/dist folder
+//and serve the index.html file in the frontend/dist folder
+//setup to deploy the app
+if (ENV_VARS.NODE_ENV === "production"){
+  //dirname is the directory name of the current module
+  //go to the frontend/dist folder and serve the static files in the build folder
 
+  app.use(express.static(path.join(__dirname, "/frontend/dist"))); //serve the static files in the build folder
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
 //listen to the root URL, consoles a message
 app.listen(PORT, () => {
   console.log("Server is listening at http://localhost:"+PORT);

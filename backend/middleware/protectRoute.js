@@ -1,8 +1,22 @@
+
 //makes sure that the use is logged in first before they are 
 //allowed to access the movie and tv routes
 //aka search up movies and tvshows
 
 //take cookies and validate it
+
+/**
+ * Middleware to protect routes by ensuring the user is logged in.
+ * Validates the JWT token from cookies and verifies the user.
+ * If the user is authenticated, adds the user object to the request object.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ * @returns {void}
+ * 
+ * @throws {Error} If there is an issue with token validation or user retrieval.
+ */
 import jwt from "jsonwebtoken"; 
 import { ENV_VARS } from "../config/envVars.js"; 
 import {User} from "../models/user.model.js"; 
