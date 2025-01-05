@@ -39,15 +39,14 @@ app.use("/api/v1/search", protectRoute, searchRoutes);
 //if the node environment is in production, serve the static files in the frontend/dist folder
 //and serve the index.html file in the frontend/dist folder
 //setup to deploy the app
-if (ENV_VARS.NODE_ENV === "production"){
-  //dirname is the directory name of the current module
-  //go to the frontend/dist folder and serve the static files in the build folder
+if (ENV_VARS.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-  app.use(express.static(path.join(__dirname, "/frontend/dist"))); //serve the static files in the build folder
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-  });
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+	});
 }
+
 //listen to the root URL, consoles a message
 app.listen(PORT, () => {
   console.log("Server is listening at http://localhost:"+PORT);
