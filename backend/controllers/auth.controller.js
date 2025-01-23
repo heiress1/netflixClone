@@ -6,7 +6,7 @@ import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 // this function is called by the express.js router when a post rquest is made to the /signup endpoint
 
 
-
+//req and res are automacitally passed in in express.js
 export async function signup(req, res) {
     
     //user wants to send a couple of credentials to the server
@@ -71,7 +71,8 @@ export async function signup(req, res) {
            image:image
         });
 
-        
+        //once user account was created successfuly, you gernate a token using the userid 
+        //the _id is gnerated by mongodb
         generateTokenAndSetCookie(newUser._id, res);
         //saves a new user document to the mongodb database
         await newUser.save();
@@ -135,7 +136,7 @@ export async function login(req, res) {
             }
         });
         
-
+        //The cookie is used to store the JSON Web Token (JWT), which serves as a means of verifying whether the user is authenticated (logged in) or not
     }catch (error){
         console.error("error in login controller: " + error.message);
         res.status(500).json({success: false, message: "Internal server error"});

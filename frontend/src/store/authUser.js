@@ -1,3 +1,10 @@
+
+
+/**
+ * Creates the authentication store using Zustand.
+ * 
+ * @returns {AuthStore} The authentication store.
+ */
 //zustand is a state managment library for React
 //provides a simple api for managing global state without a complex setup
 //create is a function used to create a store
@@ -7,8 +14,22 @@ import {create} from "zustand";
 
 //shows beautfil notifications to the user
 import toast from "react-hot-toast";
-
 import axios from "axios";
+
+/**
+ * Zustand store for managing authentication state.
+ * 
+ * @typedef {Object} AuthStore
+ * @property {Object|null} user - The authenticated user object or null if not authenticated.
+ * @property {boolean} isSigningUp - Indicates if the sign-up process is ongoing.
+ * @property {boolean} isCheckingAuth - Indicates if the authentication check is ongoing.
+ * @property {boolean} isLoggingOut - Indicates if the logout process is ongoing.
+ * @property {boolean} isLoggingIn - Indicates if the login process is ongoing.
+ * @property {function(Object): Promise<void>} signup - Signs up a new user with the given credentials.
+ * @property {function(Object): Promise<void>} login - Logs in a user with the given credentials.
+ * @property {function(): Promise<void>} logout - Logs out the current user.
+ * @property {function(): Promise<void>} authCheck - Checks the current authentication status.
+ */
 
 //create function defines initial state an methods for store
 //set is provided by zustand to update the state

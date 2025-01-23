@@ -1,7 +1,16 @@
+
 //axios is a http client library to simplify the process of making http requests to apis
 import axios from 'axios';
 
 import { ENV_VARS } from '../config/envVars.js';
+
+/**
+ * Fetches data from the TMDB API.
+ *
+ * @param {string} url - The URL to fetch data from.
+ * @returns {Promise<Object>} The data fetched from the TMDB API.
+ * @throws {Error} If the request fails or the response status is not 200.
+ */
 
 //the function will fetch data from the tmdb api where it will be called with the url it wants to fetch data from
 //this way whenever we want to fetch data from the tmdb api we can call this function with the url we want to fetch data from
@@ -20,7 +29,8 @@ export const fetchFromTMDB = async (url) => {
         }
     };
 
-    //makes an http get request to the tmdb api and options object  
+    //makes an http get request to the tmdb api and options object 
+    //returns a response object, which will have serverl properties like data which holds the actual data returned by server
     const response = await axios.get(url, options)
 
     if (response.status !== 200){

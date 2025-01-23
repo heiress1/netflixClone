@@ -5,6 +5,13 @@ export const generateTokenAndSetCookie = (userid,res) => {
     //jwt.sign is how we create a token
     //the userid is the tokens payload that is encoded into it so we can itdentify the user
     //the env_vars.jwt_secret is the secret key used to sign the token so the token can be verified by server
+    //the id in the token is to trace it back to the right user 
+    //the jwt secret key is kept in the server so only the server knows it and can use it to verify that the token hasn't been tampered with
+    //because only the server will know the secret key and gernate valid tokens, if its tampered with (changed id )
+    //it wont watch what the server expects 
+    //When the token is created using jwt.sign, the payload (which includes the user's unique identifier) is combined with the secret key to produce a signature. 
+    // This signature is appended to the token
+    // This ensures that any change to the payload will result in a different signature
     const token = jwt.sign({ userid }, ENV_VARS.JWT_SECRET, {
         expiresIn: "15d",
     });
