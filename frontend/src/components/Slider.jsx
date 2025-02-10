@@ -1,3 +1,25 @@
+/**
+ * Slider component that displays a horizontal slider of movies or TV shows.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.category - The category of content to display
+ * 
+ * @returns {JSX.Element} The rendered Slider component
+ * 
+ * @example
+ * <Slider category="popular" />
+ * 
+ * @description
+ * This component fetches and displays a list of movies or TV shows based on the provided category.
+ * It allows horizontal scrolling through the content using left and right arrows.
+ * 
+ * @requires useContentStore from "../store/content.js"
+ * @requires SMALL_IMG_BASE_URL from '../utils/constants.js'
+ * @requires axios from 'axios'
+ * @requires Link from 'react-router-dom'
+ * @requires ChevronLeft and ChevronRight from 'lucide-react'
+ */
 import React, { useRef } from 'react'
 import { useContentStore } from "../store/content.js";
 import { SMALL_IMG_BASE_URL } from '../utils/constants.js';
