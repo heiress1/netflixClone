@@ -1,5 +1,9 @@
 # netflixClone
 
+You can check out this live website using this link: https://netflixclone-7f7z.onrender.com/search
+
+OR
+
 You can run this project locally by opening up your terminal and following these commands
 1. Navigate to the root directory (Netflix Clone). This should be the default folder the project opens up to
 2. Install backend dependencies with : npm install
